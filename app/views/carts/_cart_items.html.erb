@@ -1,0 +1,33 @@
+
+<%= render partial: "products/navbar" %>
+<%# @order_items.each do |item| %>
+    <h3> <%# item.product.title %> </h3>
+    <h3> <%# item.product.price %> </h3>
+<%# end %>
+    <%# form_for item do |f| %>
+        <%# f.hidden_field :product_id, :value => item.product.id %>
+        <%# f.number_field :quantity, :value => item.quantity.to_i %>
+        <%# f.submit "Update Cart" %>
+        <%# link_to "Remove Items", item, method: :delete, remote: true %>
+        <%# end %>
+    <%# end %>
+  <% @order_items = current_order.order_items %>
+  <table> 
+  <tr>
+    <th> Item </th>
+    <th> Price </th>
+    <th> Qty </th>
+    <th> Total </th>
+  <tr>
+  <% @order_items.each do |item| %>
+    <tr> 
+    <td> <%= item.product.title %> </td>
+    <td> <%= item.product.price %> </td>
+    <td> <%= item.quantity %> </td>
+    <td> <%= item.product.price*item.quantity %> </td>
+    <td> <%= link_to "Destroy", order_item_path(item),
+    method: :delete%> </td>
+    </tr>
+<% end %>
+
+<h3>Your Current Order has a total of: <%= current_order.subtotal %> </h3>

@@ -1,0 +1,45 @@
+<head>
+<style>
+    img {
+      max-width: 350px;
+      height: auto;
+    }
+    </style>
+</head>
+
+<h1><%= @product.title %></h1>
+<div style="width:40%; height:40%">
+<%= image_tag(@product.image) if @product.image.present?%>
+</div>
+<p><%= @product.description %></p>
+
+<p><%= @product.price %></p>
+
+<ul>
+    <% if current_user.id == @product.user_id %>
+      <li><%= link_to "Edit", edit_product_path(@product) %></li>
+      <li><%= link_to "Destroy", product_path(@product),
+      method: :delete%></li>
+    <% else %>
+    <h2>Add a comment:</h2>
+    <%= form_with model: [ @product, @product.comments.build ] do |form| %>
+      <p>
+        <%= form.label :body %><br>
+        <%= form.text_area :body %>
+      </p>
+      <p>
+        <%= form.submit %>
+      </p>
+    <% end %>
+  <% end %>
+
+  <h2>Comments</h2>
+<% @product.comments.each do |comment| %>
+  
+
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %>
+  </p>
+<% end %>
+</ul>
